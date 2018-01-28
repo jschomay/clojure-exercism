@@ -1,6 +1,8 @@
 (ns hello-world)
 
-(defn hello
-  ([] (hello  "World"))
-  ([name] (str "Hello, " name "!"))
+(defn hello 
+  ( [name]
+    (str "Hello, " name "!"))
+  ( []
+    (str "Hello, World!"))
 )
