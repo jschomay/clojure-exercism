@@ -8,3 +8,4 @@ maven-classpath.properties
 .idea/
 .lein-failures
 .lein-repl-history
+.nrepl-port

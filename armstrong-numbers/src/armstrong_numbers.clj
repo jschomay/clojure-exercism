@@ -1,11 +1,12 @@
-(ns armstrong-numbers
-  (:require [clojure.math.numeric-tower :as math]))
-
-(defn explode-to-digits [number]
-  (map #(Character/digit % 10) (seq (str number))))
+(ns armstrong-numbers)
 
 (defn armstrong?
   [n]
-  (let [digits (explode-to-digits n)
-        exponents (fn [x] ( map #(math/expt (int %) (count x)) x))]
-    (= n (reduce + ( exponents digits )))))
+  (let [digits (loop [remaining n acc []]
+                 (if (zero? remaining)
+                   acc
+                   (recur (quot remaining 10) (cons (mod remaining 10) acc))))
+        length (count digits)
+        exponents (map #(Math/pow % length) digits)
+        summed (reduce + exponents)]
+    (== n summed)))
