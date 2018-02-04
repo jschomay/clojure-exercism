@@ -1,11 +1,9 @@
 (ns bob
   (:require [clojure.string :refer (trim upper-case)]))
 
-(defn isLetter [x] (Character/isLetter x))
-
 (defn shouting [input]
   (and
-   ((comp not empty? #(filter isLetter %)) input)
+   ((comp not empty? (partial filter #(Character/isLetter %))) input )
    (= input (upper-case input))))
 
 (defn response-for [input]
