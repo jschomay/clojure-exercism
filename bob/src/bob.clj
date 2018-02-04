@@ -1,6 +1,16 @@
-(ns bob)
+(ns bob
+  (:require [clojure.string :refer (trim upper-case)]))
+
+(defn isLetter [x] (Character/isLetter x))
+
+(defn shouting [input]
+  (and
+   ((comp not empty? #(filter isLetter %)) input)
+   (= input (upper-case input))))
 
 (defn response-for [input]
   (cond
-    (->> input (filter #(Character/isAlphabetic %)) (every? #(Character/isUpperCase %))) "Woah, chill out!"
-    :else "Whatever"))
+    (= "" (trim input)) "Fine. Be that way!"
+    (shouting input) "Whoa, chill out!"
+    (= (last input) \?) "Sure."
+    :else "Whatever."))
