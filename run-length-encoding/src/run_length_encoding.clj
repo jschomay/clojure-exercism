@@ -12,7 +12,7 @@
 (defn run-length-decode
   "decodes a run-length-encoded string"
   [s]
-  (let [parts (re-seq #"(\d+)(\w)|\w" s)
+  (let [parts (re-seq #"(\d+)(\D)|\D" s)
         clean #(map (partial filter identity) %) 
         expand (fn [acc [full n c :as part]]
                 (if (= 1 (count part))
@@ -24,4 +24,4 @@
 
 
 (run-length-decode 
-  (run-length-encode "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB"))
+  (run-length-encode "WWWWWWWWWWWWBWWWWW WWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB"))
