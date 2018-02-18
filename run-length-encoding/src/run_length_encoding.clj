@@ -12,13 +12,15 @@
 (defn run-length-decode
   "decodes a run-length-encoded string"
   [s]
-  (let [parts (re-seq #"\d+\w|\w" s)
-        is-digit (comp #(when %1 "is-digit") (partial re-matches #"\d") str)
-        partitioned (partial partition-by is-digit)
-        to-digit (partial reduce str)
-        step (fn [acc v] (reduce str v))]
-    ; (reduce step "" partitioned)))
-    parts))
+  (let [parts (re-seq #"(\d+)(\w)|\w" s)
+        clean #(map (partial filter identity) %) 
+        expand (fn [acc [full n c :as part]]
+                (if (= 1 (count part))
+                  (str acc full)
+                  ; (str acc m)))]
+                  (str acc (apply str (repeat (Integer/parseInt n 10) c)))))]
+    ; (clean parts)))
+    (reduce expand "" (clean parts))))
 
 
 (run-length-decode 
