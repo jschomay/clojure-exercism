@@ -12,13 +12,13 @@
 (defn run-length-decode
   "decodes a run-length-encoded string"
   [s]
-  (let [is-digit (comp #(when %1 "is-digit") (partial re-matches #"\d") str)
-        ; TODO not quite right
-        partitioned (partition-by is-digit s)
+  (let [parts (re-seq #"\d+\w|\w" s)
+        is-digit (comp #(when %1 "is-digit") (partial re-matches #"\d") str)
+        partitioned (partial partition-by is-digit)
         to-digit (partial reduce str)
         step (fn [acc v] (reduce str v))]
     ; (reduce step "" partitioned)))
-    (map to-digit partitioned)))
+    parts))
 
 
 (run-length-decode 
