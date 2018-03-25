@@ -2,7 +2,7 @@
   (:require  [clojure.string :as s]))
 
 (defn equal-with
-  "Makes a compairison by first running the supplied arguments through the supplied funciton."
+  "Makes a comparison by first running the supplied arguments through the supplied function."
   [f & args]
   (apply = (map f args)))
 
